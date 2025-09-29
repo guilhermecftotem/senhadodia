@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador de Senha - CF Sistemas</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      width: 400px;
+      backdrop-filter: blur(10px);
+    }
+    .logo {
+      width: 100px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    button {
+      background: linear-gradient(90deg, #ff416c, #ff4b2b);
+      border: none;
+      padding: 15px 25px;
+      border-radius: 30px;
+      font-size: 16px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(255, 75, 43, 0.6);
+    }
+    .resultado {
+      margin-top: 25px;
+      font-size: 18px;
+    }
+    .senha {
+      font-size: 28px;
+      font-weight: bold;
+      color: #00ffcc;
+      margin-top: 10px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s forwards;
+    }
+    .data {
+      margin-top: 10px;
+      font-size: 14px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="" alt="Logo CF Sistemas" class="logo">
+    <h1>Senha do Dia</h1>
+    <button onclick="gerarSenha()">🔑 Gerar Senha</button>
+    <div class="resultado">
+      <div id="saida"></div>
+    </div>
+  </div>
+
+  <script>
+    function gerarSenha(){
+        const hoje = new Date();
+        const d = hoje.getDate();
+        const m = hoje.getMonth() + 1; // janeiro = 0
+        const a = hoje.getFullYear();
+
+        let valor = d * m * a * 7 * 8 * 9;
+        let senha = null;
+        let divs = 0;
+
+        while(!senha && divs < 100){
+            valor = valor / 2;
+            divs++;
+            const floorVal = Math.floor(valor);
+            const floorStr = floorVal.toString();
+            if(floorStr.length === 4){
+                senha = floorStr;
+            }
+        }
+
+        document.getElementById("saida").innerHTML = `
+          <div class="senha"> ${senha}</div>
+          <div class="data">Data: ${d}/${m}/${a}</div>
+        `;
+    }
+  </script>
+</body>
+</html>
