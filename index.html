@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gerador de Senha - CF Sistemas</title>
   <style>
     body {
@@ -12,37 +13,43 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
       text-align: center;
+      padding: 15px;
     }
     .container {
       background: rgba(255, 255, 255, 0.08);
-      padding: 30px;
+      padding: 25px;
       border-radius: 20px;
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-      width: 400px;
+      width: 100%;
+      max-width: 400px;
       backdrop-filter: blur(10px);
     }
     .logo {
-      width: 100px;
+      width: 100%;
+      max-width: 150px;   /* limite no PC */
+      height: auto;       /* mantém proporção */
       margin-bottom: 20px;
     }
     h1 {
-      font-size: 24px;
+      font-size: 22px;
       margin-bottom: 20px;
       letter-spacing: 1px;
     }
     button {
       background: linear-gradient(90deg, #ff416c, #ff4b2b);
       border: none;
-      padding: 15px 25px;
+      padding: 12px 22px;
       border-radius: 30px;
       font-size: 16px;
       color: #fff;
       font-weight: bold;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
+      width: 100%;
+      max-width: 250px;
     }
     button:hover {
       transform: scale(1.05);
@@ -51,9 +58,10 @@
     .resultado {
       margin-top: 25px;
       font-size: 18px;
+      word-wrap: break-word;
     }
     .senha {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: bold;
       color: #00ffcc;
       margin-top: 10px;
@@ -78,10 +86,28 @@
         transform: translateY(0);
       }
     }
+
+    /* 📱 Ajustes para telas pequenas */
+    @media (max-width: 480px) {
+      .logo {
+        max-width: 100px; /* menor no celular */
+      }
+      h1 {
+        font-size: 20px;
+      }
+      .senha {
+        font-size: 22px;
+      }
+      button {
+        font-size: 15px;
+        padding: 10px 18px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- 📌 Caminho correto da imagem -->
     <img src="imagens/logo.png" alt="Logo CF Sistemas" class="logo">
     <h1>Senha do Dia</h1>
     <button onclick="gerarSenha()">🔑 Gerar Senha</button>
@@ -112,11 +138,10 @@
         }
 
         document.getElementById("saida").innerHTML = `
-          <div class="senha"> ${senha}</div>
+          <div class="senha">${senha}</div>
           <div class="data">Data: ${d}/${m}/${a}</div>
         `;
     }
   </script>
 </body>
 </html>
-
